@@ -3,6 +3,7 @@
 # file for a project II just copy this one. The original file can be found at 
 # my repo https://github.com/cxrlos/Personal-Stuff
 
+.env
 
 ### VIM (cuz emacs sukz) ###
 # No need for swap because I have it disabled (I have undo-tree instead)

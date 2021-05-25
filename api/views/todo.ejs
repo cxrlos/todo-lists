@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <head>
+        <title>API Test - MongoDB x Express</title>
+    </head>
+
+    <body>
+        <div class="task-list">
+            <h2>API Test - MongoDB x Express</h2>
+            <div class="todo">
+                <form action="/" method="POST" class="post-form">
+                    <input type="text" name="content">
+                    <button type="submit">
+                        <span>POST</span>
+                    </button>
+                </form>
+                <ul class="dynamic-list">
+                    <% todoTasks.forEach(details => { %>
+                        <li class="todo-list-item">
+                            <div class="todo-list-item-name"><%= details.content %></div>
+                            <a class="edit"><span>Edit</span></a>
+                            <a class="delete"><span>Delete</span></a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </body>
