@@ -1,8 +1,9 @@
 <!DOCTYPE html>
  <!-- 
- * @todo.ejs
+ * @edit.ejs
  *
- * Main view, contains main page to add, delete and update tasks 
+ * Editing view, same as todo but with an editable dynamic list given a mongo
+ * objectID
  *
  * Authors: Carla Perez & Carlos Garcia 
 -->
@@ -43,7 +44,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="https://github.com/cxrlos/todo-lists">Github</a>
@@ -62,31 +63,31 @@
     <div class= "row pt-4">
       <div class="d-flex align-items-center mb-4 ">
         <div class="form-group mr-2 mb-2">
-        <form action="/" method="POST" class="post-form">
-             <input
+
+<!-- Dynamic list -->
+<p>Editing task</p>
+<% todoTasks.forEach(details => { %>
+<% if (details._id == idTask) { %>
+    <form action="/edit/<%= details._id %>" method="POST">
+        <input
             type="text"
             name="content"
+            value="<%= details.content %>" 
             class="form-control"
-            placeholder="Enter a task title"
-          />
-          <input
-          type="text"
-          name="description"
-          class="form-control"
-          placeholder="Enter a task description"
         />
-        </div>
+        <input
+            type="text"
+            name="description"
+            value="<%= details.description %>" 
+            class="form-control"
+        />
         <button
-          type="submit"
-          class="btn btn-info mr-3"
-        >
-          Save
-        </button>
+            type="submit"
+            class="btn btn-info mr-3"
+        > Save </button>
     </form>
-    </div>
-</div>
-<div class= "row">
-
+<% }%>
+<% }) %>
       <div class="table-wrapper">
         <table class="table table-hover table-bordered table-dark">
           <thead >
@@ -121,7 +122,12 @@
           </tbody>
         </table>
       </div>
+
+        </div>
+    </form>
     </div>
+</div>
+
     </div>
 </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -160,4 +166,4 @@
 </script>
 </div>
 </div>
-  </html>
+</html>
