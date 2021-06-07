@@ -7,6 +7,13 @@ const todoTaskSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    description: {
+        type: String
+    }, 
+    status: {
+        type: String,
+        default: "In progress"
     }
 })
 

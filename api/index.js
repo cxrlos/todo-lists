@@ -39,7 +39,7 @@ app.get('/',(req, res) => {
 
 
 app.post('/',async (req, res) => {
-    const todoTask = new task({content: req.body.content});
+    const todoTask = new task({content: req.body.content, description: req.body.description});
     try {
         await todoTask.save();
         // Reloads after the request is sent so it can show the updated data
@@ -48,3 +48,26 @@ app.post('/',async (req, res) => {
         res.redirect("/");
     }
 });
+
+app.get("/delete/:id", async (request, response) => {
+    try {
+        const t = await task.findByIdAndDelete(request.params.id);
+         if (!t) response.status(404).send("No item found");
+         response.redirect("/");
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  });
+
+  app.get("/completed/:id", async (request, response) => {
+    try {
+        const update =
+        {
+            status: "Completed"
+        }
+      await task.findByIdAndUpdate(request.params.id, update);
+      response.redirect("/");
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  });
