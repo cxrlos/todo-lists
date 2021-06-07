@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+ <!-- 
+ * @edit.ejs
+ *
+ * Editing view, same as todo but with an editable dynamic list given a mongo
+ * objectID
+ *
+ * Authors: Carla Perez & Carlos Garcia 
+-->
+
 <html lang="en">
     
     <head>
@@ -35,13 +44,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">All Items</a>
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="#">Github</a>
+                <a class="nav-link" href="https://github.com/cxrlos/todo-lists">Github</a>
             </li>
           </ul>
         </div>
@@ -57,26 +63,67 @@
     <div class= "row pt-4">
       <div class="d-flex align-items-center mb-4 ">
         <div class="form-group mr-2 mb-2">
-        <form action="/" method="POST" class="post-form">
-             <input
+
+<!-- Dynamic list -->
+<p>Editing task</p>
+<% todoTasks.forEach(details => { %>
+<% if (details._id == idTask) { %>
+    <form action="/edit/<%= details._id %>" method="POST">
+        <input
             type="text"
             name="content"
+            value="<%= details.content %>" 
             class="form-control"
-            placeholder="Enter a task title"
-          />
-          <input
-          type="text"
-          name="description"
-          class="form-control"
-          placeholder="Enter a task description"
         />
-        </div>
+        <input
+            type="text"
+            name="description"
+            value="<%= details.description %>" 
+            class="form-control"
+        />
         <button
-          type="submit"
-          class="btn btn-info mr-3"
-        >
-          Save
-        </button>
+            type="submit"
+            class="btn btn-info mr-3"
+        > Save </button>
+    </form>
+<% }%>
+<% }) %>
+      <div class="table-wrapper">
+        <table class="table table-hover table-bordered table-dark">
+          <thead >
+            <tr>
+              <th scope="col">Task Name</th>
+              <th scope="col">Todo item</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% todoTasks.forEach(details => { %>
+                <tr>
+                    <td><%= details.content %>  </td>
+                    <td class="todo-list-item-name">
+                        <%= details.description %>           
+                   </td>
+                    <td><%= details.status%> </td>
+                    <td>
+                      <button class="btn btn-danger" onclick="location.href ='/delete/<%= details._id %>'">
+                        Delete
+                      </button>
+                      <button class="btn btn-info" onclick="location.href = '/edit/<%= details._id %>'">
+                        Edit
+                      </button>
+                      <button class="btn btn-success" onclick="location.href = '/completed/<%= details._id %>'">
+                        Finished
+                      </button>
+                      </td>
+                  </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+        </div>
     </form>
     </div>
 </div>
@@ -101,7 +148,7 @@
           <ul class="list-unstyled" >
             <li>
                 <img src="https://www.nicepng.com/png/full/52-520535_free-files-github-github-icon-png-white.png" width= "32"height= "32"alt="">
-              <a  href="#!" style = "color: white">Github</a>
+              <a  href="https://github.com/cxrlos/todo-lists" style = "color: white">Github</a>
             </li>
             <li>
                 <img src="https://img.icons8.com/ios-filled/50/ffffff/google-slides.png"width= "32"height= "32"/>
@@ -112,11 +159,11 @@
       </div>
     </div>
     <div style = "color: white" class="footer-copyright text-center py-3">© 2021 Copyright:
-      <a style = "color: white" href="https://mdbootstrap.com/"> Carlos & Carla</a>
+      <a style = "color: white" href=""> Carlos & Carla</a>
     </div>
   </footer>
 <script>
 </script>
 </div>
 </div>
-  </html>
+</html>

@@ -30,14 +30,14 @@ mongoose.connect(process.env.API_KEY, { useNewUrlParser: true }, () => {
 
 app.set("view engine", "ejs");
 
+// Main endpoint, calls the todo (main ejs file)
 app.get('/',(req, res) => {
   task.find({}, (err, tasks) => {
       res.render("todo.ejs", { todoTasks: tasks});
   });
-   
 });
 
-
+// Create new task
 app.post('/',async (req, res) => {
     const todoTask = new task({content: req.body.content, description: req.body.description});
     try {
@@ -49,25 +49,45 @@ app.post('/',async (req, res) => {
     }
 });
 
+// Delete task given a mongoDB object id
 app.get("/delete/:id", async (request, response) => {
     try {
         const t = await task.findByIdAndDelete(request.params.id);
-         if (!t) response.status(404).send("No item found");
-         response.redirect("/");
+        if (!t) response.status(404).send("No item found");
+            response.redirect("/");
     } catch (error) {
-      response.status(500).send(error);
+        response.status(500).send(error);
     }
-  });
+});
 
-  app.get("/completed/:id", async (request, response) => {
+// Mark task as complete given its mongoDB object id
+app.get("/completed/:id", async (request, response) => {
     try {
-        const update =
-        {
+        const update = {
             status: "Completed"
         }
-      await task.findByIdAndUpdate(request.params.id, update);
-      response.redirect("/");
+        await task.findByIdAndUpdate(request.params.id, update);
+        response.redirect("/");
     } catch (error) {
-      response.status(500).send(error);
+        response.status(500).send(error);
     }
-  });
+});
+
+// Edit task values given its mongoDB object id
+app.route("/edit/:id").get((req, res) => {
+    const id = req.params.id;
+    task.find({}, (err, tasks) => {
+        res.render("edit.ejs", { 
+            todoTasks: tasks, idTask: id
+        });
+    });
+}).post((req, res) => {
+    const id = req.params.id;
+    task.findByIdAndUpdate(id, { 
+        content: req.body.content, description: req.body.description
+    }, err => {
+        if (err) 
+        return res.send(500, err);
+        res.redirect("/");
+    });
+});
