@@ -41,7 +41,7 @@
               <a class="nav-link" href="#">All Items</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="https://github.com/cxrlos/todo-lists">Github</a>
+                <a class="nav-link" href="#">Github</a>
             </li>
           </ul>
         </div>
@@ -80,43 +80,7 @@
     </form>
     </div>
 </div>
-<div class= "row">
 
-      <div class="table-wrapper">
-        <table class="table table-hover table-bordered table-dark">
-          <thead >
-            <tr>
-              <th scope="col">Task Name</th>
-              <th scope="col">Todo item</th>
-              <th scope="col">Status</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% todoTasks.forEach(details => { %>
-                <tr>
-                    <td><%= details.content %>  </td>
-                    <td class="todo-list-item-name">
-                        <%= details.description %>           
-                   </td>
-                    <td><%= details.status%> </td>
-                    <td>
-                      <button class="btn btn-danger" onclick="location.href ='/delete/<%= details._id %>'">
-                        Delete
-                      </button>
-                      <button class="btn btn-info" onclick="location.href = '/edit/<%= details._id %>'">
-                        Edit
-                      </button>
-                      <button class="btn btn-success" onclick="location.href = '/completed/<%= details._id %>'">
-                        Finished
-                      </button>
-                      </td>
-                  </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      </div>
-    </div>
     </div>
 </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -137,7 +101,7 @@
           <ul class="list-unstyled" >
             <li>
                 <img src="https://www.nicepng.com/png/full/52-520535_free-files-github-github-icon-png-white.png" width= "32"height= "32"alt="">
-              <a  href="https://github.com/cxrlos/todo-lists" style = "color: white">Github</a>
+              <a  href="#!" style = "color: white">Github</a>
             </li>
             <li>
                 <img src="https://img.icons8.com/ios-filled/50/ffffff/google-slides.png"width= "32"height= "32"/>
